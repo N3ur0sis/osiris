@@ -1,7 +1,6 @@
-// kmain.c
-void kmain(void) {
-    // We'll do more later, but for now:
-    while (1) {
-        // Loop forever
-    }
+#include "framebuffer.h"
+
+void kmain() {
+    fb_write("Hello Osiris!", 13);
+    while (1);
 }

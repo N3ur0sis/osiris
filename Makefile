@@ -13,8 +13,9 @@ CFLAGS = -m32 -nostdlib -nostdinc -fno-builtin -fno-stack-protector \
 ASFLAGS = -f elf32
 LDFLAGS = -T link.ld -melf_i386
 
-SOURCES_C := $(wildcard $(SRC_DIR)/kernel/*.c)
-SOURCES_S := $(wildcard $(SRC_DIR)/boot/*.s)
+SOURCES_C := $(wildcard src/kernel/*.c src/drivers/*.c)
+SOURCES_S := $(wildcard src/boot/*.s)
+INCLUDE_DIR = include
 
 OBJECTS := $(patsubst %.c, %.o, $(SOURCES_C)) $(patsubst %.s, %.o, $(SOURCES_S))
 
