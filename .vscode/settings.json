@@ -1,0 +1,9 @@
+{
+	"files.associations": {
+		"io.h": "c",
+		"gdt.h": "c",
+		"types.h": "c",
+		"stdio.h": "c",
+		"framebuffer.h": "c"
+	}
+}
