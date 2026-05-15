@@ -4,6 +4,7 @@
 
 extern isr_handler   ; C-level handler
 extern isr_keyboard  ; Keyboard handler
+extern timer_handler ; Timer handler
 
 %macro ISR_NOERR 1
 global isr%1
@@ -21,6 +22,16 @@ isr%1:
     push %1              ; Interrupt number
     jmp isr_common
 %endmacro
+
+;Special handler for timer interrupt 
+global isr32
+isr32:
+    cli 
+    pusha
+    call timer_handler
+    popa
+    sti
+    iret
 
 ; Special handler for keyboard interrupt (IRQ1, INT 0x21)
 global isr33

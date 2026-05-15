@@ -13,6 +13,7 @@
 
 // External assembly handler
 extern void isr33(); // Our keyboard interrupt handler
+extern void isr32(); // Timer interrupt handler
 
 // Initialize PIC and unmask keyboard interrupt
 void init_isr() {
@@ -28,10 +29,12 @@ void init_isr() {
     outb(0xA1, 0x01); // 8086 mode
     
     // Register keyboard handler for IRQ1 (INT33)
-    idt_set_gate(0x21, (uint32_t)isr33, 0x08, 0x8E);
+    idt_set_gate(0x21, (uint32_t)isr33, 0x08, 0x8E);    
+    idt_set_gate(0x20, (uint32_t)isr32, 0x08, 0x8E); // Timer handler for IRQ0 (INT32)
+
     
     // Unmask only keyboard IRQ (IRQ1)
-    outb(PIC1_DATA, 0xFD); // 0xFD = 11111101, bit 1 = 0 (unmask IRQ1)
+    outb(PIC1_DATA, 0xFC); // 0xFD = 11111101, bit 1 = 0 (unmask IRQ1)
     outb(PIC2_DATA, 0xFF); // Mask all interrupts from PIC2
 }
 
