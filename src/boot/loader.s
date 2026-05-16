@@ -2,8 +2,8 @@ global loader
 extern kmain                    ; tells NASM that kmain is defined elsewhere (in C)
 
 MAGIC_NUMBER equ 0x1BADB002
-FLAGS        equ 0x0
-CHECKSUM     equ -MAGIC_NUMBER
+FLAGS        equ 0x03
+CHECKSUM     equ -(MAGIC_NUMBER + FLAGS)
 
 KERNEL_STACK_SIZE equ 4096     ; 4 KB stack size
 
@@ -16,6 +16,10 @@ align 4
 loader:
     ; Set up the stack
     mov esp, kernel_stack + KERNEL_STACK_SIZE
+
+    push ebx ; multiboot info pointer
+    push eax
+
 
     ; Call our C function
     call kmain
